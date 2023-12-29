@@ -4,7 +4,7 @@
 
 # Step 1: Setting Jupiter Lab in AWS and downloading the dataset of images I created in Kaggle
 
-<h2>⭐ Once you are in your Jupyter lab, use the following codes to enter on the cells</h2> 
+<h2>⭐ Step 1: Once you are in your Jupyter lab, use the following codes to enter on the cells</h2> 
 On the first 3 cells, we will use "!" to tell Jupiter that we are executing a command line command. Otherwise, if it doesn't have "!" than it is python code.
 This command will install Kaggle:
 
@@ -130,3 +130,127 @@ All commands will look like this in your Jupiter lab, execute from top to bottom
 >         print(f"Saved turtle image to: {save_path}")  # Debugging output
 >         count_turtle += 1
 > ```
+
+
+
+<h2>⭐ Step 2: Visualization - Python modules and Pandas module</h2>
+
+# (Visualization 1)
+
+First, we are going to create a table to check the number of images in each folder of test, train, and val. 
+In this case, we will be making a table where the columns are "📁Folder Type", "🫎Animal Type", and "🗄️File Path".
+In this case, we will use "glob" module to get the full path of each image from all the folders "train", "test", and "val". Using the full path we will use that to save each column information in an array.
+In this case, one array for "📁Folder Type" one for "🫎Animal Type" and one for "🗄️File Path".
+After saving all this information in their respective array, we will use pandas modules to order these array items in a table.
+
+This is the code I am using:
+
+```bash
+import glob
+import pandas as pd
+
+folder ="./data/*/*.jpeg"
+
+# store the information in a list
+folder_types =[]
+animal_types = []
+file_paths =[]
+
+all_files=glob.glob(folder)
+
+for filename in all_files:
+    if "test" in filename:
+        if "turtle" in filename:
+            folder_types.append("test")
+            animal_types.append("turtle")
+            file_paths.append(filename)
+        elif "penguin" in filename:
+            folder_types.append("test")
+            animal_types.append("penguin")
+            file_paths.append(filename)
+    elif "train" in filename:
+        if "turtle" in filename:
+            folder_types.append("train")
+            animal_types.append("turtle")
+            file_paths.append(filename)
+        elif "penguin" in filename:
+            folder_types.append("train")
+            animal_types.append("penguin")
+            file_paths.append(filename)
+    elif "val" in filename:
+        if "turtle" in filename:
+            folder_types.append("val")
+            animal_types.append("turtle")
+            file_paths.append(filename)
+        elif "penguin" in filename:
+            folder_types.append("val")
+            animal_types.append("penguin")
+            file_paths.append(filename)
+all_data = pd.DataFrame({"📁Folder Type":folder_types,"🫎Animal Type":animal_types,"🗄️File Path":file_paths})
+print(all_data)
+```
+
+Once it is Run, you will get this output:
+
+<img src="https://i.imgur.com/LSlBJwC.png" alt="MLH-banner" width="550px" height="250px">
+
+# (Visualization 2)
+
+Continuing from the First Visualization, we will be going to do a graph visualization.
+
+We will be using "seaborn" module to do this visualization. In this case, seaborn will work with pandas in order to do this using the current columns we already specified here "{"📁Folder Type":folder_types,"🫎Animal Type":animal_types,"🗄️File Path":file_paths}", so we will be using only the names.
+
+Before continuing, let's download the module using:
+
+```bash
+!pip install seaborn
+```
+
+Now that we have installed the module, now I can continue talking about this module 😅
+Ok, so as I was saying, we are going to use the names of the columns we already specified with pandas.
+
+We will use the following code (I made the code to not use emojis to avoid errors🫠😭):
+
+```bash
+# Renaming columns to avoid using emojis
+all_data = all_data.rename(columns={"🫎Animal Type": "Animal Type", "📁Folder Type": "Folder Type"})
+
+bar_graph = sns.catplot(x="Animal Type", hue="Animal Type", col="Folder Type", kind="count", palette="ch:.55", data=all_data, legend=False)
+```
+Description of Code:
+- So, we will first import the "seaborn" in order to use it for the creation of the bar graph. In this case, we will use "catplot" where we need to specify x,hue,col,kind,palette, data,and,legend. (catplot might be capable for more parameters but for these bar charts we will only use the one I mentioned). In this case, for the x-coordinate we will specify the column "🫎Animal Type". For "hue" parameter, this means the color encoding (hue) will be based on the same variable as the x-axis, which is "🫎Animal Type". The col specifies the column of each bar graph depending on the "📁Folder Type", the folders "test", "train","val". For "Kind", in this case, we want the count of the number of images of each animal. The "pallete" is just for the type of style of the bar chart, in this case I used "ch:.55" but you can use a different one. For data, as I said before, we are using the variable that stored the table created by pandas. And "Legend" is false because it would be redundant because when you use hue, seaborn automatically adds a legend.
+
+Once it is Run, you will get this output:
+
+<img src="https://i.imgur.com/s7zJqtB.png" alt="MLH-banner" width="550px" height="250px">
+
+Right now as you can see, it is very difficult to actually determine the number of images of each graph.
+
+Therefore, we will be adding labels with the actual quantities. We will update the code like this:
+
+```bash
+# Renaming columns to avoid using emojis
+all_data = all_data.rename(columns={"🫎Animal Type": "Animal Type", "📁Folder Type": "Folder Type"})
+
+bar_graph = sns.catplot(x="Animal Type", hue="Animal Type", col="Folder Type", kind="count", palette="ch:.55", data=all_data, legend=False)
+
+# ensuring that the loop iterates only over the existing columns of the FacetGrid.
+folder_types = all_data["Folder Type"].unique()
+
+# Ensure that the loop iterates over the correct number of columns
+for column in range(len(folder_types)):
+
+    subplot = bar_graph.facet_axis(0, column)
+    for patch in subplot.patches:
+        height = patch.get_height()
+        subplot.text(patch.get_x() + patch.get_width() / 2., 
+                     height + 0.5, 
+                     '{:1.2f}'.format(height), 
+                     ha="center")
+```
+
+We are iterating through each possible "Folder Type" and adding the label of each bar of each column.
+
+Once it is Run, you will get this output:
+
+<img src="https://i.imgur.com/jyQdnKt.png" alt="MLH-banner" width="550px" height="250px">
