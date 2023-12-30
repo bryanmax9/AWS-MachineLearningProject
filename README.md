@@ -212,6 +212,7 @@ Ok, so as I was saying, we are going to use the names of the columns we already 
 We will use the following code (I made the code to not use emojis to avoid errors🫠😭):
 
 ```bash
+import seaborn as sns
 # Renaming columns to avoid using emojis
 all_data = all_data.rename(columns={"🫎Animal Type": "Animal Type", "📁Folder Type": "Folder Type"})
 
@@ -229,6 +230,7 @@ Right now as you can see, it is very difficult to actually determine the number 
 Therefore, we will be adding labels with the actual quantities. We will update the code like this:
 
 ```bash
+import seaborn as sns
 # Renaming columns to avoid using emojis
 all_data = all_data.rename(columns={"🫎Animal Type": "Animal Type", "📁Folder Type": "Folder Type"})
 
@@ -254,3 +256,96 @@ We are iterating through each possible "Folder Type" and adding the label of eac
 Once it is Run, you will get this output:
 
 <img src="https://i.imgur.com/jyQdnKt.png" alt="MLH-banner" width="550px" height="250px">
+
+
+
+<h2>⭐ Step 3: Training Model - Using S3 buckets and Jupyter for training with help of lst file</h2>
+
+Now that we have the right format, there's just one last step before training our model – and yes, it's an important one! 🫠
+
+In AWS Jupyter, we need to create a .lst file. This is a simple yet crucial file format that helps our model find and learn from each image stored in the S3 bucket. Think of it as a map, guiding the model to the right data.
+
+Here's how our .lst file should look (we will do this with pandas module 🐼):
+
+| Identifier ID | Class Category | S3 Image Path                  |
+|---------------|----------------|--------------------------------|
+| 1             | 0              | `<path_to_turtle_image>`       |
+| 5             | 3              | `<path_to_cat_image>`          |
+| 9             | 0              | `<path_to_another_turtle_image>` |
+| 2             | 1              | `<path_to_penguin_image>`      |
+| 6             | 2              | `<path_to_crocodile_image>`    |
+
+Each line in this file represents an image, where:
+ • Identifier ID is a unique number for each image.
+ • Class Category is the label or category of the image.
+ • S3 Image Path is the full path to the image in the S3 bucket.
+
+So, below the code cell we were working previously and we will use this code in order to create the lst file using the dataset I provided from my Kaggle:
+
+```bash
+import glob
+import pandas as pd
+import os
+
+test_folder = "./data/test/*.jpeg"
+test_lst = pd.DataFrame(columns=["labels","s3_path"], dtype=object)
+test_images = glob.glob(test_folder)
+counter =0
+class_arg=""
+
+for i in test_images:
+    if "turtle" in i:
+        class_arg=1
+    else:
+        class_arg=0
+    test_lst.loc[counter]=[class_arg,os.path.basename(i)]
+    counter+=1
+print(test_lst)
+```
+
+The code is essentially using the same techniques we were using to create tables using pandas. In this case, the DataFrame will already create automatically the column for the "Identifier Id" by giving an id in increment order of 1,2,3, etc.
+
+Then, we made the two remaining columns "labels" that represent the "Class Category" column and we created s3_path" representing "S3 Image Path".
+
+We are adding the values using this line "test_lst.loc[counter]=[class_arg,os.path.basename(i)]".
+
+Once it is Run, you will get this output:
+
+<img src="https://i.imgur.com/pE9y1hr.png" alt="MLH-banner" width="550px" height="250px">
+
+We will do the same for train images.
+
+```bash
+import glob
+import pandas as pd
+import os
+
+train_folder = "./data/train/*.jpeg"
+train_lst = pd.DataFrame(columns=["labels","s3_path"], dtype=object)
+train_images = glob.glob(train_folder)
+counter =0
+class_arg=""
+
+for i in train_images:
+    if "turtle" in i:
+        class_arg=1
+    else:
+        class_arg=0
+    train_lst.loc[counter]=[class_arg,os.path.basename(i)]
+    counter+=1
+print(train_lst)
+```
+
+Finally, we have to convert these tables into a CSV. In this case, lst files are similar to CSV files but are tab-separated. Therefore, when saving the lst file we are going to specify tab separated and these files will be saved in the root directory of the Jupyter Lab:
+
+```bash
+def save_as_lst_file(df,prefix):
+    return df[["labels","s3_path"]].to_csv(
+        f"{prefix}.lst",sep="\t",index=True,header=False
+    )
+save_as_lst_file(train_lst.copy(),"train")
+save_as_lst_file(test_lst.copy(),"test")
+```
+
+
+
