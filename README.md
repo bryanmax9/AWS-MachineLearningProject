@@ -259,7 +259,7 @@ Once it is Run, you will get this output:
 
 
 
-<h2>⭐ Step 3: Training Model - Using S3 buckets and Jupyter for training with help of lst file</h2>
+<h2>⭐ Step 3: Creating LST file for Training Model - creating lst Data Frames for training</h2>
 
 Now that we have the right format, there's just one last step before training our model – and yes, it's an important one! 🫠
 
@@ -347,5 +347,73 @@ save_as_lst_file(train_lst.copy(),"train")
 save_as_lst_file(test_lst.copy(),"test")
 ```
 
+<h2>⭐ Step 4: Creating S3 Bucket and syncing to Jupyter - setting S3 for training</h2>
+
+In the AWS Dashboard go to "Amazon S3" and create a new bucket. Name the S3 Bucket as you want, mine will be named "penguin-turtle-ai" and then click "Create bucket". 
+
+<img src="https://i.imgur.com/unXG3X0.png" alt="MLH-banner" width="550px" height="250px">
 
 
+Once the bucket is created, click on it.
+
+![s3-bucket-2](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/ad3357dc-db5f-42d7-bb53-2ea9c2d0d9c3)
+
+Then click on the "properties" tab. There you will need what is circled in red, so don't close that tab.
+
+![s3-bucket-3](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/19ae832d-3fcf-4b3f-b517-a9ab4a3ef366)
+
+Now in a new cell of Jupyter, we are going to store in variables the "bucket_name", "bucket_region", and "bucket_Arn" like this:
+
+```bash
+bucket_name="penguin-turtle-ai"
+bucket_region="us-east-1"
+bucket_Arn="arn:aws:s3:::penguin-turtle-ai"
+```
+
+Now, we are going to retrieve the environment variable  of the default S3 bucket name and replace it with the name of our s3 bucket name "penguin-turtle-ai" 
+
+we will run this code in the next Jupyter cell:
+
+```bash
+import os
+
+os.environ["DEFAULT_S3_BUCKET"]=bucket_name
+```
+
+After that, we will upload our train and test folder with the images to our S3 bucket.
+
+In the next two cells run both of these commands (These commands use the paths of the folders we retrieved from my Kaggle so this might be different for you):
+
+```bash
+!aws s3 sync ./data/train s3://${DEFAULT_S3_BUCKET}/train/
+```
+
+and 
+
+```bash
+!aws s3 sync ./data/test s3://${DEFAULT_S3_BUCKET}/test/
+```
+
+Now that the folders with the images are already uploaded to the S3 Bucket. We can now upload the lst files we created by using this code:
+
+```bash
+import boto3
+
+# Create a session
+session = boto3.Session()
+
+# Get the S3 resource
+s3_resource = session.resource('s3')
+
+# Upload the files
+s3_resource.Bucket(bucket_name).Object("train.lst").upload_file("./train.lst")
+s3_resource.Bucket(bucket_name).Object("test.lst").upload_file("./test.lst")
+```
+
+👻Now we are almost There
+
+From the open browser window  I told you not to close 👀
+
+Inside your bucket, click the "Objects" tab and reload the page and you will see the uploaded folders and files just like this:
+
+![s3-bucket-4](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/d64fcd3b-e1d7-4a4b-89af-768c843d2ba8)
