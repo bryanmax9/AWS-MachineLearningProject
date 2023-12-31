@@ -417,3 +417,54 @@ From the open browser window  I told you not to close 👀
 Inside your bucket, click the "Objects" tab and reload the page and you will see the uploaded folders and files just like this:
 
 ![s3-bucket-4](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/d64fcd3b-e1d7-4a4b-89af-768c843d2ba8)
+
+<h2>⭐ Step 5: Training model with Sagemaker - setting a SageMaker session and training</h2>
+
+First, we will create a "SageMaker" session to train our model. In this case, the Python code below will create a sagemaker session using our specifications. In this case, we are first retrieving the URI of a Docker image in ECR for the specified machine learning framework we specified as the "image-classification" framework. We specified the region since Docker image URIs are region-specific.
+
+Overall, we are  setting up a SageMaker session and preparing to use an image classification algorithm from SageMaker's set of built-in algorithms. Also, we need to specify the S3 location for storing the output of the model.
+
+```bash
+import sagemaker
+from sagemaker import image_uris
+import boto3
+from sagemaker import get_execution_role
+sess= sagemaker.Session()
+
+algorithm_image=image_uris.retrieve(
+    region=boto3.Session().region_name,
+    framework="image-classification"
+)
+
+s3_output_location = f"s3://{bucket_name}/models/image_model"
+```
+
+Now we will allow SageMaker to have access to our AWS
+
+The "get_execution_role()" retrieves the AWS Identity and Access Management (IAM) role that was assigned to the SageMaker notebook instance or the SageMaker training job. This role is used to grant necessary permissions to SageMaker for accessing AWS resources like S3 buckets, executing training jobs, deploying models, and more. The role should have the necessary policies attached to it to allow these actions.
+
+Therefore we will use this code line to store the role:
+
+```bash
+role =  get_execution_role()
+```
+
+Now, we will set the estimator to be ready to execute a training job in SageMaker
+
+We are going to use the "algorithm_image" variable we created to specify that we want an image classifier. For the role, we are giving the role variable we made that will permit to SageMaker to access AWS resources. For the instance count, we specified 1 EC2 instance since we are using not much data for the training. The instance type is "ml.p2.xlarge" which is a specific type of instance optimized for machine learning purposes. Volume size 50 with a max run for the maximum run time until it fails. The input mode is "File", this mode means that SageMaker copies the training dataset from S3 to the local file system before starting the training job. The "output_path"=s3_output_location will specify the S3 location for saving the training result after the training job. The "sagemaker_session=sess" specifies the SageMaker session object, which manages interactions with the Amazon SageMaker APIs and any other AWS services needed. The session is used to execute the training job.
+
+So the following code would be:
+
+```bash
+img_classifier_model= sagemaker.estimator.Estimator(
+    algorithm_image,
+    role=role,
+    instance_count=1,
+    instance_type="ml.p2.xlarge",
+    volume_size=50,
+    max_run=432000,
+    input_mode="File",
+    output_path=s3_output_location,
+    sagemaker_session=sess
+)
+```
