@@ -469,7 +469,7 @@ img_classifier_model= sagemaker.estimator.Estimator(
 )
 ```
 
-Now, we will need to finalize the image-classifier configurations.
+Now, we will need to finalize the image-classifier configurations. All of these configurations are needed for the trained model to be as accurate as possible. 
 
 So the next code cell would be:
 
@@ -493,11 +493,27 @@ img_classifier_model.set_hyperparameters(
     early_stopping_patience=5,
     early_stopping_tolerance=0.0,
     lr_scheduler_factor=0.1,
-    lr_scheduler_step="8,10,12"
+    lr_scheduler_step="8,10,12",
+    augmentation_type="crop_color_transformation"
 )
 ```
 
 - We are essentially first getting the number of images in the train folder and setting the final settings for the image classifier model. We specify in "image shape" 3 since we use RGB of 3 dimensions and the 224,224 to depict the image dimensions. we are using only turtles and penguins then we set "num_classes" to 2. "use_pretrained_model=1" uses a pre-trained model, which is a common practice to leverage pre-learned features. We specify the "num_training_samples" to be the number of images in the train folder. "epochs=15" means that the entire dataset will be passed through the neural network 15 times, this might be more if you have a larger enterprise dataset. The "early_stopping=True" will enable early stopping, a method used to prevent overfitting by stopping training when a monitored metric has stopped improving, which is a default. "early_stopping_min_epochs=8" is the minimum number of epochs to run before early stopping can be initiated, this will also be different depending on the epoch number. The "early_stopping_patience=5" is the number of epochs with no improvement after which training will be stopped, this also might vary depending on your number of epochs. The "early_stopping_tolerance=0.0" is the tolerance for early stopping, so we set it to 0.0 to stop immediately when the condition is met.
-The "lr_scheduler_factor=0.1" is the factor by which the learning rate will be reduced. The last one "lr_scheduler_step="8,10,12" is the epoch numbers at which learning rate reduction will happen, this might also differ and change depending on the amount of epoch.
+The "lr_scheduler_factor=0.1" is the factor by which the learning rate will be reduced. The last one "lr_scheduler_step="8,10,12" is the epoch numbers at which learning rate reduction will happen, this might also differ and change depending on the amount of epoch. Finally, the line "augmentation_type="crop_color_transformation"" will make that during each epoch of the training (or pass through the data), the model will see slightly different versions of each image, due to the random cropping and color transformations. This can prevent the model from overfitting to the exact details of the training images and improve its ability to generalize to new images.
 
+Finally
+
+we will set the HyperParameter Range:
+
+```bash
+from sagemaker.tuner import CategoricalParameter, ContinuousParameter, HyperparameterTuner
+
+hyperparameter_ranges={
+    "learning_rate":ContinuousParameter(0.01,0.1),
+    "mini_batch_size":CategoricalParameter([8,16,32]),
+    "optimizer":CategoricalParameter(["sgd","adam"])
+}
+```
+
+- The hyperparameter_ranges variable we will store a dictionary, where each key-value pair represents a specific hyperparameter and its possible range of values. For the "learning_rate" hyperparameter, we are setting a ContinuousParameter class used to define a continuous numeric range from 0.01 to 0.1. This means that the learning rate can take any real-numbered value within this specified range, allowing for fine-grained adjustments to how the model learns from the data. Moreover, the "mini_batch_size" hyperparameter will use the CategoricalParameter class that will only take discrete values from the set [8, 16, 32]. This approach is used for hyperparameters that have specific, predefined options. Ultimately, the choice of batch sizes often comes down to empirical testing. In this case, the set [8, 16, 32] provides a range of sizes that are commonly used in practice. You would use hyperparameter tuning to test these different values and observe which one results in the best performance for your specific application. Similarly, the "optimizer" hyperparameter is also defined as a categorical parameter, with the options being either 'sgd' (stochastic gradient descent) or 'adam' (an optimizer that combines features of other optimization algorithms). The goal is to achieve the best performance based on a specified objective, such as minimizing loss or maximizing accuracy.
 
