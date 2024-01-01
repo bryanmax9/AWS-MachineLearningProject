@@ -468,3 +468,36 @@ img_classifier_model= sagemaker.estimator.Estimator(
     sagemaker_session=sess
 )
 ```
+
+Now, we will need to finalize the image-classifier configurations.
+
+So the next code cell would be:
+
+```bash
+import glob
+
+count_files=0
+
+for filepath in glob.glob("./data/train/*.jpeg"):
+    count_files+=1
+
+
+img_classifier_model.set_hyperparameters(
+    image_shape="3,224,224",
+    num_classes=2,
+    use_pretrained_model=1,
+    num_training_samples=count_files,
+    epochs=15,
+    early_stopping=True,
+    early_stopping_min_epochs=8,
+    early_stopping_patience=5,
+    early_stopping_tolerance=0.0,
+    lr_scheduler_factor=0.1,
+    lr_scheduler_step="8,10,12"
+)
+```
+
+- We are essentially first getting the number of images in the train folder and setting the final settings for the image classifier model. We specify in "image shape" 3 since we use RGB of 3 dimensions and the 224,224 to depict the image dimensions. we are using only turtles and penguins then we set "num_classes" to 2. "use_pretrained_model=1" uses a pre-trained model, which is a common practice to leverage pre-learned features. We specify the "num_training_samples" to be the number of images in the train folder. "epochs=15" means that the entire dataset will be passed through the neural network 15 times, this might be more if you have a larger enterprise dataset. The "early_stopping=True" will enable early stopping, a method used to prevent overfitting by stopping training when a monitored metric has stopped improving, which is a default. "early_stopping_min_epochs=8" is the minimum number of epochs to run before early stopping can be initiated, this will also be different depending on the epoch number. The "early_stopping_patience=5" is the number of epochs with no improvement after which training will be stopped, this also might vary depending on your number of epochs. The "early_stopping_tolerance=0.0" is the tolerance for early stopping, so we set it to 0.0 to stop immediately when the condition is met.
+The "lr_scheduler_factor=0.1" is the factor by which the learning rate will be reduced. The last one "lr_scheduler_step="8,10,12" is the epoch numbers at which learning rate reduction will happen, this might also differ and change depending on the amount of epoch.
+
+
