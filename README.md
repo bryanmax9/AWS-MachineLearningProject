@@ -517,3 +517,86 @@ hyperparameter_ranges={
 
 - The hyperparameter_ranges variable we will store a dictionary, where each key-value pair represents a specific hyperparameter and its possible range of values. For the "learning_rate" hyperparameter, we are setting a ContinuousParameter class used to define a continuous numeric range from 0.01 to 0.1. This means that the learning rate can take any real-numbered value within this specified range, allowing for fine-grained adjustments to how the model learns from the data. Moreover, the "mini_batch_size" hyperparameter will use the CategoricalParameter class that will only take discrete values from the set [8, 16, 32]. This approach is used for hyperparameters that have specific, predefined options. Ultimately, the choice of batch sizes often comes down to empirical testing. In this case, the set [8, 16, 32] provides a range of sizes that are commonly used in practice. You would use hyperparameter tuning to test these different values and observe which one results in the best performance for your specific application. Similarly, the "optimizer" hyperparameter is also defined as a categorical parameter, with the options being either 'sgd' (stochastic gradient descent) or 'adam' (an optimizer that combines features of other optimization algorithms). The goal is to achieve the best performance based on a specified objective, such as minimizing loss or maximizing accuracy.
 
+
+<h1>Before starting our Training job</h1>
+
+We have to first go to the AWS Dashboard and search for "Service Quotas":
+
+![service quotas](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/5c53a497-e20b-48ee-9a7b-32d3a1b9de8b)
+
+
+In "Manage Quotas" search for "Amazon SageMaker" and click on "View quotas":
+
+![service quotas 2](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/a125d0c0-2c51-4234-b562-55a4a7e23e5c)
+
+In "Service quotas" search for "ml.p2.xlarge for training job usage" and click on it:
+
+![service quotas 3](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/26baae63-c9e8-4788-968d-0f79048ad2c1)
+
+Now click on "Request quota increase":
+
+![service quotas 4](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/1bb01597-1ba8-405b-8888-25e42e6fa2b8)
+
+Specify 1 quota since we are just doing 1 for this project, then click "request":
+
+![service quotas 5](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/c1fd0939-296d-47e7-9d3f-999890d0d7d2)
+
+
+Now, Return to the Jupyter Lab and we will use this final code to initialize the Training Job:
+
+```bash
+from sagemaker.session import TrainingInput
+import time
+
+objective_metric_name = "validation:accuracy"
+objective_type = "Maximize"
+max_jobs=5
+max_parallel_jobs=1
+
+tuner=HyperparameterTuner(estimator=img_classifier_model,
+                         objective_metric_name=objective_metric_name,
+                         hyperparameter_ranges=hyperparameter_ranges,
+                         objective_type=objective_type,
+                         max_jobs=max_jobs,
+                         max_parallel_jobs=max_parallel_jobs
+                         )
+
+model_inputs={
+    "train":sagemaker.inputs.TrainingInput(s3_data=f"s3://{bucket_name}/train/", content_type="image/jpeg"),
+    "validation":sagemaker.inputs.TrainingInput(s3_data=f"s3://{bucket_name}/test/", content_type="image/jpeg"),
+    "train_lst":sagemaker.inputs.TrainingInput(s3_data=f"s3://{bucket_name}/train.lst", content_type="image/jpeg"),
+    "validation_lst":sagemaker.inputs.TrainingInput(s3_data=f"s3://{bucket_name}/test.lst", content_type="image/jpeg"),
+}
+
+job_name_prefix="classifier"
+timestamp=time.strftime("-%Y-%m-%d-%H-%M-%S", time.gmtime())
+job_name=job_name_prefix+timestamp
+
+tuner.fit(inputs=model_inputs,job_name=job_name,logs=True)
+
+```
+
+- This code snippet sets up and starts a hyperparameter tuning job using Amazon SageMaker. The HyperparameterTuner object is configured to optimize the img_classifier_model, which is a predefined image classification model. The goal of the tuning job is to maximize the model's accuracy on a validation dataset (validation:accuracy).
+
+Key configurations for the tuning job include:
+
+    max_jobs: The total number of different hyperparameter combinations that the tuner will evaluate is set to 5.
+    max_parallel_jobs: Specifies that only one hyperparameter tuning job should be run at a time.
+
+The model_inputs dictionary defines the data sources for the tuning job, with training and validation datasets as well as their corresponding list files (.lst) specified by their paths in an S3 bucket. These inputs are expected to be JPEG image files.
+
+Finally, the tuning job is given a unique name by appending a timestamp to the job_name_prefix, which in this case, is "classifier". The tuner.fit method then starts the tuning job with the specified inputs and job name, with logs enabled for monitoring.
+
+<h1>Monitor Training</h1>
+
+Now, let's go to the AWS dashboard and search for "Cloud watch":
+
+![cloud watch](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/031246fe-afc0-4aed-9196-41f2d784f7e5)
+
+Then on the left side go to "Logs" and click on "Log groups". In there click on "/aws/sagemaker/TrainingJobs" that is circled in red:
+
+![cloud watch 2](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/3255647c-deac-4881-a842-a0433805c3e3)
+
+
+
+
