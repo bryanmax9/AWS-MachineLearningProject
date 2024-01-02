@@ -471,7 +471,7 @@ img_classifier_model= sagemaker.estimator.Estimator(
 
 Now, we will need to finalize the image-classifier configurations. All of these configurations are needed for the trained model to be as accurate as possible. 
 
-So the next code cell would be:
+So the next 2 separate code cells would be, run one by one and wait for the first one to finish:
 
 ```bash
 import glob
@@ -480,7 +480,12 @@ count_files=0
 
 for filepath in glob.glob("./data/train/*.jpeg"):
     count_files+=1
+print(count_files)
+```
 
+after that one finishes running, run:
+
+```bash
 
 img_classifier_model.set_hyperparameters(
     image_shape="3,224,224",
