@@ -629,7 +629,7 @@ Then on the left side go to "Logs" and click on "Log groups". In there click on 
 
 ![cloud watch 2](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/3255647c-deac-4881-a842-a0433805c3e3)
 
-When you scroll down you will not see any log so far since we just started the training, we will have to wait between 7 to 10 hours and check this window again to check for the logs. for now, just wait but this window will be where you will be able to monitor your SageMaker training so for now just grab a cup of hot cocoa ☕.
+When you scroll down you will not see any log so far since we just started the training, we will have to wait between 1 to 3 hours and check this window again to check for the logs. For me, it took me 1 hour with 30 minutes. for now, just wait but this window will be where you will be able to monitor your SageMaker training so for now just grab a cup of hot cocoa ☕.
 
 ![cloud watch 3](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/50281aef-6b52-4bc5-bb64-501f3349d68f)
 
