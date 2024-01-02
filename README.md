@@ -526,7 +526,7 @@ img_classifier_model.set_hyperparameters(
     early_stopping_tolerance=0.0,
     lr_scheduler_factor=0.1,
     lr_scheduler_step="8,10,12",
-    augmentation_type="crop_color_transformation"
+    augmentation_type="crop_color_transform"
 )
 ```
 
