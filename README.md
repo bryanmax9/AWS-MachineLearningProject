@@ -594,10 +594,10 @@ tuner=HyperparameterTuner(estimator=img_classifier_model,
                          )
 
 model_inputs={
-    "train":sagemaker.inputs.TrainingInput(s3_data=f"s3://{bucket_name}/train/", content_type="image/jpeg"),
-    "validation":sagemaker.inputs.TrainingInput(s3_data=f"s3://{bucket_name}/test/", content_type="image/jpeg"),
-    "train_lst":sagemaker.inputs.TrainingInput(s3_data=f"s3://{bucket_name}/train.lst", content_type="image/jpeg"),
-    "validation_lst":sagemaker.inputs.TrainingInput(s3_data=f"s3://{bucket_name}/test.lst", content_type="image/jpeg"),
+    "train":sagemaker.inputs.TrainingInput(s3_data=f"s3://{bucket_name}/train/", content_type="application/x-image"),
+    "validation":sagemaker.inputs.TrainingInput(s3_data=f"s3://{bucket_name}/test/", content_type="application/x-image"),
+    "train_lst":sagemaker.inputs.TrainingInput(s3_data=f"s3://{bucket_name}/train.lst", content_type="application/x-image"),
+    "validation_lst":sagemaker.inputs.TrainingInput(s3_data=f"s3://{bucket_name}/test.lst", content_type="application/x-image"),
 }
 
 job_name_prefix="classifier"
