@@ -69,6 +69,33 @@ with zipfile.ZipFile('./penguin-and-turtles-dataset.zip', 'r') as zip_ref:
     zip_ref.extractall('.')
 ```
 
+I messed up an image folder where instead of "test" the name starts with "train" inside the test folder. We will use this code to fix that:
+
+```bash
+import os
+import glob
+
+def rename_images(directory):
+    # Path to the directory
+    path = directory
+
+    # Pattern to match files starting with 'train_turtles'
+    pattern = "train_turtles*"
+
+    # Iterate over all files matching the pattern
+    for file in glob.glob(os.path.join(path, pattern)):
+        # Construct the new file name by replacing 'train' with 'test'
+        new_file_name = file.replace('train_turtles', 'test_turtles')
+
+        # Renaming the file
+        os.rename(file, new_file_name)
+        print(f"Renamed '{file}' to '{new_file_name}'")
+
+# Specify the directory where the images are located
+directory = "/data/test/"
+rename_images(directory)
+```
+
 All commands will look like this in your Jupiter lab, execute from top to bottom one by one:
 <img src="https://i.imgur.com/0M1jCay.png" alt="MLH-banner" width="100%" height="400px">
 
