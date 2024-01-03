@@ -633,6 +633,12 @@ When you scroll down you will not see any log so far since we just started the t
 
 ![cloud watch 3](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/50281aef-6b52-4bc5-bb64-501f3349d68f)
 
+<h1>Check Training Completion</h1>
 
+Go to AWS Dashboard and search for AWS Sagemaker:
 
+![sagemaker-check](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/f6e18041-3efd-4400-a725-ffe25054fd67)
 
+Then in the left-side tabs scroll down and go to "Training" and then "Hyperparameter tuning jobs" and you will see all the successful and unsuccessful training jobs. In this case, mine was successful 5/5 because I had to adjust the code while doing this documentation:
+
+![sagemaker-check 2](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/eaf9fd5b-e0b8-4cc9-90af-ef1d1089250d)
