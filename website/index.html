@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Save Sea Turtles</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/x-icon" href="./resources/turtle.ico" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="sticky-nav">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <!-- Add more navigation links as needed -->
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+      <video autoplay loop muted class="video-background">
+        <source src="./resources/turtle-video.mp4" type="video/mp4" />
+      </video>
+      <model-viewer
+        src="./resources/baby_sea_turtle/scene.gltf"
+        alt="Sea Turtle Model"
+        camera-controls
+        auto-rotate
+        class="model-viewer"
+      ></model-viewer>
+      <div class="hero-text">
+        <h1>Guardians of the Hatchlings</h1>
+        <h2>Every Nest Counts</h2>
+        <p>Help us make the beaches safe for the next generation</p>
+      </div>
+    </section>
+
+    <!-- Information Section -->
+    <section class="info-section" id="about">
+      <div class="info-content">
+        <h2>About Sea Turtles</h2>
+        <div class="info-box">
+          <p>
+            Sea turtles are fascinating and ancient mariners of the ocean,
+            having graced our waters for millions of years. Their life cycle
+            begins in a remarkable journey where females laboriously crawl onto
+            sandy beaches to lay their eggs. Each nest, a cradle of life, can
+            contain up to a hundred eggs, but not all will survive. After
+            incubation, tiny hatchlings emerge and scramble towards the sea,
+            guided by the natural light horizon over the ocean. This first
+            journey is perilous, as seagulls and crabs often prey on these
+            vulnerable newborns, drastically reducing their chances of survival.
+            But the challenges for sea turtles don't end there. Human activities
+            have introduced new threats, from plastic pollution and fishing nets
+            in the oceans to artificial lighting on beaches, which can disorient
+            hatchlings, leading them away from the sea. Coastal development has
+            also resulted in the loss of nesting habitats. Remarkably, sea
+            turtles play a crucial role in maintaining the health of marine
+            ecosystems. For instance, their grazing helps maintain healthy
+            seagrass beds and coral reefs, benefiting countless other marine
+            species. Protecting sea turtles, therefore, is not just about saving
+            an iconic species but also about preserving the balance of our
+            marine environments. Every effort to reduce our environmental impact
+            and safeguard their nesting sites contributes significantly to the
+            survival of these incredible creatures.
+          </p>
+          <!-- More content -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Model Viewer Library -->
+    <script
+      type="module"
+      src="https://unpkg.com/@google/model-viewer@latest/dist/model-viewer.min.js"
+    ></script>
+  </body>
+</html>

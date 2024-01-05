@@ -1,0 +1,8 @@
+Model Information:
+* title:	Baby sea turtle
+* source:	https://sketchfab.com/3d-models/baby-sea-turtle-b24836ade9d94d9289397fe9a938821e
+* author:	hymer (https://sketchfab.com/hymer)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
