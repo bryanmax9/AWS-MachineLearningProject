@@ -695,11 +695,11 @@ Paste the name of the recent created policy. In my case, "Lambda-Sagemaker-Polic
 
 ![deployment-10](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/7f0d310f-c990-4bbe-8ef8-23eb706733a2)
 
-Now, add a name to the role and scroll down and click on "Create role":
+Once the role is created, return to the Lambda page we where working on and select the option "Use an existing role" and select you role, in my case would be named "SageMaker-LambadaRole" and then click on the "Create function" button:
 
 ![deployment-11](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/3e3b35a4-6234-4a54-818f-a74db197a171)
 
-Once the role is created, return to the Lambda page we where working on and select the option "Use an existing role" and select you role, in my case would be named "SageMaker-LambadaRole" and then click on the "Create function" button:
+
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
