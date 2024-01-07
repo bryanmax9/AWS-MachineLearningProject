@@ -621,6 +621,8 @@ Finally, the tuning job is given a unique name by appending a timestamp to the j
 
 <h1>Monitor Training</h1>
 
+⚒️ Once is finished, saying "------------!" with an ending "!".
+
 Now, let's go to the AWS dashboard and search for "Cloud watch":
 
 ![cloud watch](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/031246fe-afc0-4aed-9196-41f2d784f7e5)
@@ -642,3 +644,130 @@ Go to AWS Dashboard and search for AWS Sagemaker:
 Then in the left-side tabs scroll down and go to "Training" and then "Hyperparameter tuning jobs" and you will see all the successful and unsuccessful training jobs. In this case, mine was successful 5/5 because I had to adjust the code while doing this documentation:
 
 ![sagemaker-check 2](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/eaf9fd5b-e0b8-4cc9-90af-ef1d1089250d)
+
+<h2>⭐ Step 6: Deploying the best AI model as an Endpoint to Amazon API Gateway </h2> 
+
+On the AWS Dashboard, search in the search bar for "Lambda" and click on it:
+
+![deployment-1](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/7e2be61a-b130-4be5-a96d-80bf0bc632ec)
+
+Than, click on "Create function":
+
+ ![deployment-2](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/23c82e4f-bb90-4e79-9a7c-da2f0e677503)
+
+Give a function name, mine is "turtle-endpoint". The Runtime will be "Python 3.9":
+
+![deployment-3](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/4064cef1-10f2-42db-92ca-8382b7058f1e)
+
+Scroll down and on "Change default execution role" expand it and click on "IAM console":
+
+ ![deployment-4](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/536cae98-2f82-42d4-aaaf-b18d9b2faffb)
+
+and Select "Lambda" on "Service or use case" and click "next":
+
+![deployment-5](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/90509cb7-aedf-466a-a9ea-430a5bc373a7)
+
+In a new window, go to AIM page and go to "Access managment" to the left side and click on "Policies". Now click on "Create policy" since we will be adding the functionality to work wih sagemaker:
+
+![deployment-6](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/472445ce-8232-40f1-b801-d7c0fdd58112)
+
+For the "Service" select "Sagemaker". In "Specify actions from the service to be allowed", we will writte "invoke" and click on the "InvokeEndpoint" and for "Resources" select "All". Now click on "Add more permissions"
+
+![deployment-7](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/22b0d86b-acd0-4a6e-b6e8-e5d84ec6c026)
+
+For the next permission, we will put for service "CloudWatch Logs". For "Ations allowed", we will select "CreateLogGroup","CreateLogStream", and "PutLogEvents". For "Resources" selecting "All" and click "Next":
+
+![deployment-8](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/1e69d5d4-bba6-48a9-838a-83f68d4e35dc)
+
+Now, we will give a name to this policy. In this case, I named it "Lambda-Sagemaker-Policy" and click "Create policy":
+
+![deployment-9](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/b9adb72f-cea3-4acd-bc3e-7eb972f4e2e7)
+
+Now, return to the window where we clicked to "IAM console":
+
+ ![deployment-4](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/536cae98-2f82-42d4-aaaf-b18d9b2faffb)
+
+ Again, Select "Lambda" on "Service or use case" and click "next":
+
+![deployment-5](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/90509cb7-aedf-466a-a9ea-430a5bc373a7)
+
+Paste the name of the recent created policy. In my case, "Lambda-Sagemaker-Policy" and select it and then click "Next"
+
+![deployment-10](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/7f0d310f-c990-4bbe-8ef8-23eb706733a2)
+
+Now, add a name to the role and scroll down and click on "Create role":
+
+![deployment-11](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/3e3b35a4-6234-4a54-818f-a74db197a171)
+
+Once the role is created, return to the Lambda page we where working on and select the option "Use an existing role" and select you role, in my case would be named "SageMaker-LambadaRole" and then click on the "Create function" button:
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+<h1>Fixing- ignore what is written below 💀⚡</h1>
+
+Now, we have to continue from the place we where previously and click on the completed training with status "Completed":
+
+![sagemaker-check 2](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/eaf9fd5b-e0b8-4cc9-90af-ef1d1089250d)
+
+Now, click on the tab "Best training job" tab and copy the "Name" that I circled in red since we will need it since that is the best model that we will be deploying:
+
+![best-model](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/d5f8d0b9-3324-42a2-a447-5225a1ad1d5d)
+
+Once the name is copied, now let's write in the AWS search bar "S3" and click on S3 that is circled:
+
+![deploy-1](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/320b4f95-dda1-4865-a831-d466e0441fbd)
+
+Now click on the bucket that you created for the training. In my case, I would click where is circled in red named "penguin_turtle-ai":
+
+![deploy-2](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/1144a9f1-07a1-4345-ab86-0cef6805c3d2)
+
+Click on "models" folder:
+
+![deploy-3](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/cb7b3f6a-3ce3-4d02-82eb-7f7e67a71f89)
+
+Click on "image_model" folder:
+
+![deploy-4](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/5df7ec38-251b-418c-ba7a-a0f6903cc604)
+
+Then press "Ctrl" + "f" keys and paste the name you copied to find it on the page. In my case, I pasted "classifier-2024-01-02-20-15-40-004-bbed54fa". Where it is highlighted click on there:
+
+![deploy-5](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/a76143b2-09a6-46a0-9d25-f1c46260612e)
+
+Click on "output" folder:
+
+![deploy-6](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/9c5eda50-6e61-41b7-9e86-57029029c517)
+
+Now, click on "model.tar.gz":
+
+![deploy-7](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/407e1aa4-e1f3-4afc-bfce-18b5775a5bb2)
+
+now copy the "S3 URI":
+
+
+
+Now on Jupyter, we will put the following code, what we copied would be in the model_data. In my case I pasted "s3://penguin-turtle-ai/models/image_model/classifier-2024-01-02-20-15-40-004-bbed54fa/output/model.tar.gz" that i got from copying the "S3 URI" from before:
+
+```bash
+import sagemaker
+from sagemaker import get_execution_role
+
+role =get_execution_role()
+
+model=sagemaker.model.Model(
+    image_uri=algorithm_image,
+    model_data='s3://penguin-turtle-ai/models/image_model/classifier-2024-01-02-20-15-40-004-bbed54fa/output/model.tar.gz',
+    role=role
+)
+
+endpoint_name = "Turtle-Penguin-image-classifier"
+
+deployment= model.deploy(
+    initial_instance_count=1,
+    instance_type="ml.m4.xlarge",
+    endpoint_name=endpoint_name
+)
+```
+
+- We are essentially deploying it, the only thing i suggest changing is the endpoint_name depending on your data.
+
+Once is finished, saying "------------!" with an ending "!".
