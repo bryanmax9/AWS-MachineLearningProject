@@ -645,65 +645,8 @@ Then in the left-side tabs scroll down and go to "Training" and then "Hyperparam
 
 ![sagemaker-check 2](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/eaf9fd5b-e0b8-4cc9-90af-ef1d1089250d)
 
-<h2>⭐ Step 6: Deploying the best AI model as an Endpoint to Amazon API Gateway </h2> 
+<h2>⭐ Step 6: Deploying the best AI model as an Endpoint to Amazon API Gateway (API endpoint) </h2> 
 
-On the AWS Dashboard, search in the search bar for "Lambda" and click on it:
-
-![deployment-1](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/7e2be61a-b130-4be5-a96d-80bf0bc632ec)
-
-Than, click on "Create function":
-
- ![deployment-2](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/23c82e4f-bb90-4e79-9a7c-da2f0e677503)
-
-Give a function name, mine is "turtle-endpoint". The Runtime will be "Python 3.9":
-
-![deployment-3](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/4064cef1-10f2-42db-92ca-8382b7058f1e)
-
-Scroll down and on "Change default execution role" expand it and click on "IAM console":
-
- ![deployment-4](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/536cae98-2f82-42d4-aaaf-b18d9b2faffb)
-
-and Select "Lambda" on "Service or use case" and click "next":
-
-![deployment-5](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/90509cb7-aedf-466a-a9ea-430a5bc373a7)
-
-In a new window, go to AIM page and go to "Access managment" to the left side and click on "Policies". Now click on "Create policy" since we will be adding the functionality to work wih sagemaker:
-
-![deployment-6](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/472445ce-8232-40f1-b801-d7c0fdd58112)
-
-For the "Service" select "Sagemaker". In "Specify actions from the service to be allowed", we will writte "invoke" and click on the "InvokeEndpoint" and for "Resources" select "All". Now click on "Add more permissions"
-
-![deployment-7](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/22b0d86b-acd0-4a6e-b6e8-e5d84ec6c026)
-
-For the next permission, we will put for service "CloudWatch Logs". For "Ations allowed", we will select "CreateLogGroup","CreateLogStream", and "PutLogEvents". For "Resources" selecting "All" and click "Next":
-
-![deployment-8](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/1e69d5d4-bba6-48a9-838a-83f68d4e35dc)
-
-Now, we will give a name to this policy. In this case, I named it "Lambda-Sagemaker-Policy" and click "Create policy":
-
-![deployment-9](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/b9adb72f-cea3-4acd-bc3e-7eb972f4e2e7)
-
-Now, return to the window where we clicked to "IAM console":
-
- ![deployment-4](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/536cae98-2f82-42d4-aaaf-b18d9b2faffb)
-
- Again, Select "Lambda" on "Service or use case" and click "next":
-
-![deployment-5](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/90509cb7-aedf-466a-a9ea-430a5bc373a7)
-
-Paste the name of the recent created policy. In my case, "Lambda-Sagemaker-Policy" and select it and then click "Next"
-
-![deployment-10](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/7f0d310f-c990-4bbe-8ef8-23eb706733a2)
-
-Once the role is created, return to the Lambda page we where working on and select the option "Use an existing role" and select you role, in my case would be named "SageMaker-LambadaRole" and then click on the "Create function" button:
-
-![deployment-11](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/3e3b35a4-6234-4a54-818f-a74db197a171)
-
-
-
--------------------------------------------------------------------------------------------------------------------------------------------
-
-<h1>Fixing- ignore what is written below 💀⚡</h1>
 
 Now, we have to continue from the place we where previously and click on the completed training with status "Completed":
 
@@ -770,4 +713,188 @@ deployment= model.deploy(
 
 - We are essentially deploying it, the only thing i suggest changing is the endpoint_name depending on your data.
 
-Once is finished, saying "------------!" with an ending "!".
+Once is finished, it will say "------------!" with an ending "!" meaning finished deployment of endpoint.
+
+
+👻 Now on the AWS Dashboard, search in the search bar for "Lambda" and click on it:
+
+![deployment-1](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/7e2be61a-b130-4be5-a96d-80bf0bc632ec)
+
+Than, click on "Create function":
+
+ ![deployment-2](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/23c82e4f-bb90-4e79-9a7c-da2f0e677503)
+
+Give a function name, mine is "turtle-endpoint". The Runtime will be "Python 3.9":
+
+![deployment-3](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/4064cef1-10f2-42db-92ca-8382b7058f1e)
+
+Scroll down and on "Change default execution role" expand it and click on "IAM console":
+
+ ![deployment-4](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/536cae98-2f82-42d4-aaaf-b18d9b2faffb)
+
+and Select "Lambda" on "Service or use case" and click "next":
+
+![deployment-5](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/90509cb7-aedf-466a-a9ea-430a5bc373a7)
+
+In a new window, go to AIM page and go to "Access managment" to the left side and click on "Policies". Now click on "Create policy" since we will be adding the functionality to work wih sagemaker:
+
+![deployment-6](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/472445ce-8232-40f1-b801-d7c0fdd58112)
+
+For the "Service" select "Sagemaker". In "Specify actions from the service to be allowed", we will writte "invoke" and click on the "InvokeEndpoint" and for "Resources" select "All". Now click on "Add more permissions"
+
+![deployment-7](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/22b0d86b-acd0-4a6e-b6e8-e5d84ec6c026)
+
+For the next permission, we will put for service "CloudWatch Logs". For "Ations allowed", we will select "CreateLogGroup","CreateLogStream", and "PutLogEvents". For "Resources" selecting "All" and click "Next":
+
+![deployment-8](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/1e69d5d4-bba6-48a9-838a-83f68d4e35dc)
+
+Now, we will give a name to this policy. In this case, I named it "Lambda-Sagemaker-Policy" and click "Create policy":
+
+![deployment-9](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/b9adb72f-cea3-4acd-bc3e-7eb972f4e2e7)
+
+Now, return to the window where we clicked to "IAM console":
+
+ ![deployment-4](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/536cae98-2f82-42d4-aaaf-b18d9b2faffb)
+
+ Again, Select "Lambda" on "Service or use case" and click "next":
+
+![deployment-5](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/90509cb7-aedf-466a-a9ea-430a5bc373a7)
+
+Paste the name of the recent created policy. In my case, "Lambda-Sagemaker-Policy" and select it and then click "Next"
+
+![deployment-10](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/7f0d310f-c990-4bbe-8ef8-23eb706733a2)
+
+Once the role is created, return to the Lambda page we where working on and select the option "Use an existing role" and select you role, in my case would be named "SageMaker-LambadaRole" and then click on the "Create function" button:
+
+![deployment-11](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/3e3b35a4-6234-4a54-818f-a74db197a171)
+
+Now, we will be inside our endpoint. Scroll down to the code:
+
+![deployment-13](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/890eb43a-332d-4192-b4fa-c1c4a3eccc4e)
+
+We are going to write a function that will call the deployed endpoint where it is circled in red. We will need to delete the code that is there that is circled in red so that we can modify it to work with aour created model:
+
+![deployment-14](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/7e60eb8c-74d8-4b46-b71b-a56d2b84b625)
+
+In this case we will use this code where we will specify the "endpoint_name" that we deployed before.Basically the code does the following, the function named "lambda handler" will recieve an event and context from the API that we will setup later, the function will convert the event into the image. On the function named "predict_Turtle" where it will use our model to check in what label does this given image falls in. If you remember, before training we classified the in labels and even made a table and bar chart; So, if we remember, "1" was the label for turtle and "0" for penguin. However, since we are making this project in order to identify turtles; Then, we will return as the response either if its a turtle or not 😅.
+
+Code to replace with:
+
+```bash
+import json
+import boto3
+import base64
+
+endpoint_name = "Turtle-Penguin-image-classifier"
+
+sagemaker_runtime_client=boto3.client('runtime.sagemaker')
+
+def lambda_handler(event, context):
+    print(event)
+    image = base64.decoded(event['image'])
+    print(image)
+    return _predictTurtle(image)
+
+def _predictTurtle(image):
+    response = sagemaker_runtime_client.invoke_endpoint(
+        EndpointName=endpoint_name,
+        ContentType="application/x-image",
+        Body=image
+        )
+    result = response['Body'].read()
+    result = json.loads(result)
+    
+    print("Result: ",result)
+    predicted_class=0 if result[0] > result[1] else 1
+    toSend = result[0] if result[0] > result[1] else result[1]
+    
+    if predicted_class==1:
+        return f"🐢 Turtle or Sea Turtle found with probability of : {toSend}"
+    else:
+        return f"Any other animal that is not a turtle with probability of : {toSend}"
+```
+
+Now click on "Deploy" to save changes. ☕
+
+<h3>Now is time to create the API Gateway</h3>
+
+Now in another tab, go to the AWS dashboard and sear for  "API Gateway" and click on it:
+
+![gateway-1](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/735585fe-93c3-4ffc-b4f7-706135ee7ceb)
+
+Once the page is loaded, scroll down and click on "Build" for "REST API" just as shown below:
+
+![gateway-2](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/8b2b6d70-957c-471d-b150-77368a7b1c9f)
+
+Name the API whatever you want, mine will be called "TurtlePredict-API" and then we will click on "Create API":
+
+![gateway-4](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/ceff1a99-4a54-4f13-b006-d5fd94c28db5)
+
+Click on the "Create resource" button:
+
+![gateway-5](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/35387cea-3a14-41ef-9b45-ee4c3e3cedc5)
+
+name the resource, I named it "predict_turtles" and then click on "Create resource":
+
+![gateway-6](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/efa2d6e1-10c4-4a66-8a8a-2259ea16e739)
+
+Now, create a method in the resource we just created by clicking on "Create method":
+
+![gateway-7](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/f0cd6426-1bba-464b-af75-9e5e1c68a9e4)
+
+On "Method type" select "POST" since will be recieving the image from the user and we will respond to it. The "Integration type" will be "Lambda function". Then we will scroll down and we will select our Lambda function, in our case, is going to be the name of the endpoint we created. In my case, the name was "turtle-endpoint", once you click in there it will show all your endpoints and you will choose. Now, click "Create method":
+
+![gateway-8](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/05ccb462-021a-4b32-8aed-d15e8de5a059)
+
+![gateway-9](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/d34318ef-9134-4da2-a7a5-facf4cd834d9)
+
+
+On the left side click on "API settings". On "API settings" Now scroll down and click on "Manage media types". Add a binary media type as "application/x-image" and click on "Save changes". Than on the left side go to "Resources" and go to the "POST" and click on "Integration request".
+
+![gateway-10](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/9429d28d-23b2-45bc-b3af-255024a3c4c8)
+
+![gateway-11](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/d9b99570-c26d-4bde-8d00-52127228b564)
+
+![gateway-12](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/89f2697f-6e94-4295-97b2-9235f4ac162a)
+
+![gateway-13](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/3aef3df6-acdd-4dbb-89c0-ca2d532a57db)
+
+Scroll down and click on "Edit":
+
+![gateway-14](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/5e4b26c5-ea8e-4c42-9fa5-53b47691c829)
+
+Now scroll down and select "When there are no templates defined (recommended)". Than scroll down until "Mapping templates" and click on "Add mapping template". 
+
+![gateway-15](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/ccd16f0f-d648-4c20-a797-e6404ecf8f0b)
+
+![gateway-16](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/5c0221b0-08e5-47ec-8f0a-1d35fbac885c)
+
+In there, for content type it will be "application/x-image" and in "Template body" we will put this and then click on "Save":
+
+```bash
+{
+    "image":"$input.body"
+}
+```
+
+here is how it should look like:
+
+![gateway-17](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/c524ac16-17ac-4bda-8b3e-792ab8b4813e)
+
+Now, click on "Deploy API":
+
+![gateway-18](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/33534489-b85d-4342-b237-ef93ec72ef69)
+
+Here for "Stage" we will select "*New stage*" and for "Stage name" naming it "production-turtle" and then we can click on "Deploy" button:
+
+![gateway-19](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/88236683-90c1-4862-81dd-04a64fd2afa0)
+
+Now we successfully deployed our API endpoint where people can make requests 🎉
+
+Copy the "Invoke URL" that is pointed by the arrow. In my case, the endpoint is "https://500pkgt9ge.execute-api.us-east-1.amazonaws.com/production-turtle":
+
+![gateway-20](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/bc92c795-a225-41e1-a8d0-25ec921de506)
+
+
+
+
