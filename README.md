@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/ChMev9C.jpeg" alt="MLH-banner" width="100%" height="400px">
+<img src="https://i.imgur.com/iIEyOnU.png" alt="MLH-banner" width="100%" height="450px">
 
 # AWS-MachineLearningProject
 
