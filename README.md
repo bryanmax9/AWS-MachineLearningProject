@@ -2,9 +2,12 @@
 
 # AWS-MachineLearningProject
 
-# Step 1: Setting Jupiter Lab in AWS and downloading the dataset of images I created in Kaggle
+# ⚒️🤖 - Train a Jupyter Model in AWS and Deploy AI Machine Learning Model as an API to use in an App or Website
 
-<h2>⭐ Step 1: Once you are in your Jupyter lab, use the following codes to enter on the cells</h2> 
+<h2>⭐ Step 1: Setting Jupiter Lab in AWS and downloading the dataset of images I created in Kaggle </h2> 
+
+Once you are in your Jupyter lab, use the following codes to enter on the cells
+
 On the first 3 cells, we will use "!" to tell Jupiter that we are executing a command line command. Otherwise, if it doesn't have "!" than it is python code.
 This command will install Kaggle:
 
