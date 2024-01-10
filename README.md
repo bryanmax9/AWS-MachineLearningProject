@@ -791,7 +791,7 @@ sagemaker_runtime_client=boto3.client('runtime.sagemaker')
 
 def lambda_handler(event, context):
     print(event)
-    image = base64.decoded(event['image'])
+    image = base64.b64decode(event['image'])
     print(image)
     return _predictTurtle(image)
 
@@ -891,10 +891,33 @@ Here for "Stage" we will select "*New stage*" and for "Stage name" naming it "pr
 
 Now we successfully deployed our API endpoint where people can make requests 🎉
 
-Copy the "Invoke URL" that is pointed by the arrow. In my case, the endpoint is "https://500pkgt9ge.execute-api.us-east-1.amazonaws.com/production-turtle":
+Copy the "Invoke URL" that is pointed by the arrow. In my case, the endpoint is "https://500pkgt9ge.execute-api.us-east-1.amazonaws.com/production-turtle/predict_turtles":
 
-![gateway-20](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/bc92c795-a225-41e1-a8d0-25ec921de506)
+![updated](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/9fa15fef-e50e-4065-82a0-af638619ac20)
+
+<h2>⚡Testing Deployed API Endpoint⚡- Insomnia </h2>
+
+Go to Insomnia and create a new "http request":
+
+![insomnia-1](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/512e0d68-86ae-4577-a3cd-5543be94d3b9)
+
+1. Choose "POST" request since is the one we created it.
+2. paste the endpoint we just copied before, mine was "https://500pkgt9ge.execute-api.us-east-1.amazonaws.com/production-turtle/predict_turtles".
+3. for header and value write "Content-type" and "application/x-image" since we are giving images to the API
+
+![insomnia-2](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/1e4b3318-4c41-4c6e-8657-688d0fc53a55)
+
+Now, on "Body" select "Binary File" since we are going to be uploading the image:
+
+![insomnia-3](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/1f829104-e9ee-4397-97a0-af76735caa8d)
+
+Choose an image from your computer and test your API by clicking on "Send":
+
+![insomnia-4](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/03c7b5fe-2850-4638-86bd-88b93598d0d2)
+
+After sending the image, we will get the returned string we set on our Lambda code. If you try sending again with another image, make sure to set the "Headers" with the content-type again:
+
+![insomnia-5](https://github.com/bryanmax9/AWS-MachineLearningProject/assets/69496341/7662f2ae-5d0c-424e-88f2-d38a3b12f8b7)
 
 
-
-
+<h1>🎉Awesome!, now we can use this API for our APP or Website🎉</h1>
