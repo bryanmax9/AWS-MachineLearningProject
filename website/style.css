@@ -10,7 +10,7 @@ html {
 .sticky-nav {
   position: sticky;
   top: 0;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: #264653;
   color: white;
   padding: 1em;
   z-index: 1000;
@@ -18,41 +18,59 @@ html {
   justify-content: space-around;
   align-items: center;
 }
-
 .sticky-nav a {
   color: white;
   text-decoration: none;
   padding: 0.5em;
-  transition: color 0.3s;
+  transition: color 0.3s, transform 0.3s; /* Add transform to the transition */
+  font-size: 1.2em; /* Increase font size */
 }
-
 .sticky-nav a:hover {
-  color: #00bcd4;
-  /* Change color on hover */
+  color: #00bcd4; /* Change color on hover */
+  animation: hover-move-up-down 1.8s ease-in-out infinite;
 }
 
+/* Keyframes for smooth, continuous up-and-down movement */
+@keyframes hover-move-up-down {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  25%, 75% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+}
 /* Hero Section */
 .hero-section {
   position: relative;
   width: 100%;
-  height: 100vh;
+  /* Ensure the height includes space for both SVGs */
+  min-height: 150vh; /* Adjust this value as needed */
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
-
+.hero-section .top-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.hero-section .bottom-svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
 .hero-section .model-viewer {
   position: absolute;
   top: 0;
   left: 0;
-  width: 60%;
-  /* Adjust the width so it covers the left side of the page */
+  width: 60%; /* Adjust the width so it covers the left side of the page */
   height: 100%;
-  z-index: 1;
-  /* Ensures model-viewer is under the text */
+  z-index: 1; /* Ensures model-viewer is under the text */
 }
-
 .hero-section .video-background {
   background-color: black;
   position: absolute;
@@ -60,31 +78,27 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   z-index: -1;
 }
-
 .hero-section .hero-text {
   z-index: 2;
   color: white;
   position: absolute;
-  right: 5%;
-  /* Adjust as needed */
+  right: 5%; /* Adjust as needed */
   text-align: right;
 }
-
 .hero-section .hero-text h1 {
   font-size: 3em;
   font-weight: bold;
   margin-bottom: 0.5em;
 }
-
 .hero-section .hero-text h2 {
   font-size: 2em;
   font-weight: lighter;
   margin-bottom: 0.2em;
 }
-
 .hero-section .hero-text p {
   font-size: 1.5em;
   font-weight: lighter;
@@ -93,34 +107,30 @@ html {
 
 /* Information Section */
 .info-section {
-  background-image: linear-gradient(to right, rgba(27, 18, 18, 0.9), rgba(52, 52, 52, 0.9), rgba(0, 0, 0, 0.7)), url("./resources/beach-image.jpg");
+  background-color: #264653;
   background-size: cover;
   background-position: center;
   padding: 4em;
   text-align: center;
 }
-
 .info-section .info-content {
-  background-color: rgba(54, 69, 79, 0.8);
+  background-color: #533226;
   padding: 2em;
   border-radius: 10px;
   max-width: 85vw;
   margin: auto;
 }
-
 .info-section .info-content h2 {
   font-size: 2.5em;
   color: wheat;
   margin-bottom: 1em;
 }
-
 .info-section .info-content .info-box {
   background-color: #f0ede5;
   padding: 1em;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 .info-section .info-content .info-box p {
   color: #666;
   font-size: 1.2em;
@@ -143,4 +153,4 @@ html {
   .info-content p {
     font-size: 1em;
   }
-}
+}/*# sourceMappingURL=style.css.map */
