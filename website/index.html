@@ -12,7 +12,7 @@
     <nav class="sticky-nav">
       <a href="#home">Home</a>
       <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#contact">Project</a>
       <!-- Add more navigation links as needed -->
     </nav>
 
@@ -93,10 +93,88 @@
       </div>
     </section>
 
+    <!-- Hatching Section -->
+    <section class="hatching-section" id="hatching">
+      <svg
+        class="top-svg"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1440 320"
+      >
+        <path
+          fill="#264653"
+          fill-opacity="1"
+          d="M0,224L48,208C96,192,192,160,288,154.7C384,149,480,171,576,181.3C672,192,768,192,864,170.7C960,149,1056,107,1152,112C1248,117,1344,171,1392,197.3L1440,224L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+        ></path>
+      </svg>
+      <div class="hatching-content">
+        <h2 class="hatching-title">Sea Turtles Life Cycle</h2>
+        <div class="hatching-container">
+          <div class="hatching-box">
+            <img src="./resources/hatchling1.png" alt="Hatchling 1" />
+            <p class="hatchling-description">Eggs</p>
+          </div>
+          <div class="hatching-box">
+            <img src="./resources/hatchling2.png" alt="Hatchling 2" />
+            <p class="hatchling-description">Hatchling</p>
+          </div>
+          <div class="hatching-box">
+            <img src="./resources/hatchling3.png" alt="Hatchling 3" />
+            <p class="hatchling-description">Juvenile</p>
+          </div>
+
+          <div class="hatching-box">
+            <img src="./resources/hatchling4.png" alt="Hatchling 4" />
+            <p class="hatchling-description">Adult</p>
+          </div>
+        </div>
+      </div>
+      <svg
+        class="bottom-svg"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1440 320"
+      >
+        <path
+          fill="#264653"
+          fill-opacity="1"
+          d="M0,64L48,64C96,64,192,64,288,106.7C384,149,480,235,576,229.3C672,224,768,128,864,96C960,64,1056,96,1152,133.3C1248,171,1344,213,1392,234.7L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+        ></path>
+      </svg>
+    </section>
+
+    <!-- Predators Section -->
+    <section class="predators-section" id="predators">
+      <div class="predator-text-container">
+        <p id="predatorText"></p>
+      </div>
+      <div class="predator-image-container">
+        <img id="predatorImage" src="" alt="Predator Image" />
+      </div>
+    </section>
+
+    <!-- Image Upload Section -->
+    <section class="image-upload-section">
+      <div class="upload-container">
+        <h2>Identify a Turtle</h2>
+        <input type="file" id="imageInput" accept="image/*" />
+        <button id="uploadButton">Upload Image</button>
+        <button id="resetButton">Reset Image</button>
+      </div>
+      <div class="result-container">
+        <img
+          id="uploadedImage"
+          src="#"
+          alt="Uploaded Image"
+          style="display: none"
+        />
+        <p id="apiResponse"></p>
+      </div>
+    </section>
+
     <!-- Model Viewer Library -->
     <script
       type="module"
       src="https://unpkg.com/@google/model-viewer@latest/dist/model-viewer.min.js"
     ></script>
+    <script src="./script.js"></script>
   </body>
 </html>

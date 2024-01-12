@@ -152,8 +152,163 @@ html {
   }
 }
 
+/* Image Upload Section */
+.image-upload-section {
+  text-align: center;
+  padding: 2em;
+  background-color: #eef6f6;
+
+  .upload-container {
+    margin-bottom: 1em;
+
+    input[type="file"] {
+      margin: 1em;
+    }
+
+    button {
+      background-color: #264653;
+      color: white;
+      border: none;
+      padding: 0.5em 1em;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken(#264653, 10%);
+      }
+    }
+  }
+
+  .result-container {
+    img {
+      display: block; /* Changed from 'none' to 'block' */
+      margin: 0 auto; /* Centers the image */
+    }
+
+    p {
+      color: #333;
+      font-size: 1.2em;
+    }
+  }
+}
+
+/* Hatching Section */
+.hatching-section {
+  position: relative; // This makes the section a positioned container for its children
+  background: linear-gradient(
+    to bottom,
+    #f7e4a3 0%,
+    #f9d77e 100%
+  ); /* Sand-like gradient */
+  padding: 4em 0;
+  text-align: center;
+
+  .top-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  .bottom-svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+  }
+  .hatching-content {
+    position: relative;
+    z-index: 2; /* This ensures the content is above the SVG */
+  }
+
+  .hatching-title {
+    font-size: 5em;
+    color: #fffdd0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Optional: Adds a subtle shadow for depth */
+    margin-bottom: 0.05em; /* Space below the title */
+    z-index: 2; /* Optional: Sends SVG to the back */
+  }
+
+  .hatching-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    /* Ensure the height includes space for both SVGs */
+    min-height: 130vh; /* Adjust this value as needed */
+
+    .hatching-box {
+      width: 20em; /* Set the width of the boxes */
+      height: 20em; /* Set the height of the boxes */
+      margin: 1em;
+      transition: transform 0.5s ease-out;
+
+      .hatchling-description {
+        color: black; // Color for the descriptive text
+        font-size: 1em;
+        margin-top: 10px; // Spacing between image and text
+        text-align: center; // Center align text
+      }
+
+      &:hover {
+        transform: translateY(-10px); /* Move up on hover */
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        display: block; /* Removes extra space below the image */
+        border-radius: 10px; /* Optional: rounds the corners of the images */
+      }
+    }
+  }
+}
+
+/* Predators Section */
+.predators-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2em;
+  background-color: #264653;
+
+  .predator-text-container,
+  .predator-image-container {
+    width: 45%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .predator-text-container {
+    overflow-y: auto; // Allows vertical scrolling
+    max-height: 400px; // Adjust the height as needed
+    padding: 1em;
+    background-color: #f0ede5;
+  }
+
+  .predator-image-container {
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+  }
+}
+
+/* Responsive Design for Hatching Section */
+@media (max-width: 1400px) {
+  .hatching-section .hatching-container {
+    flex-direction: column; // Stack the boxes vertically
+  }
+  .hatching-container {
+    min-height: 150vh;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
+  .hatching-section .hatching-container .hatching-box {
+    width: 150px;
+    height: 150px;
+  }
+
   .hero-text,
   .info-content {
     padding: 5em;
