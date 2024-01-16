@@ -1,6 +1,43 @@
 <img src="https://i.imgur.com/OxnmuE8.png" alt="MLH-banner" width="100%" height="750px">
 
-# AWS-MachineLearningProject
+# 🌊 Sea Turtle Conservation AI - AWS MachineLearningProject
+
+## Overview
+
+This project utilizes AWS SageMaker to train an AI model on the identification of baby sea turtles from images. The objective is to apply this model to monitor sea turtle nests via live video feeds, thereby enabling real-time alerts when hatchlings emerge. This system supports conservation efforts by allowing organizations to protect these vulnerable creatures from predators during their critical early moments.
+
+## Model Training
+
+### Data Collection
+A dataset of baby sea turtle images was compiled to train the AI model. Although initially small to manage costs, the dataset was sufficient to demonstrate the model's capabilities for identifying hatchlings.
+
+### Training on AWS SageMaker
+The model was trained on AWS SageMaker, chosen for its scalability and robust machine learning services. The following steps were taken in the training process:
+
+1. Data preprocessing to format the images for the model.
+2. Selection of a suitable machine learning algorithm for image recognition.
+3. Model training and evaluation using the prepared dataset.
+4. Iterative refinement of the model to improve accuracy.
+
+## Website Showcase
+
+The project includes a dedicated website showcasing the cloud-based AI model. The website serves as a portal for:
+
+- Demonstrating the model's capabilities through an interactive interface.
+- Providing information on the importance of sea turtle conservation.
+- Offering insights into how the AI model assists in real-time nest monitoring.
+
+### Features
+
+- **Live Demo**: Users can upload images of baby sea turtles to see the model in action.
+- **Model Insights**: A section detailing the model's architecture, training process, and performance metrics.
+- **Conservation Information**: Educational resources on sea turtle species, the threats they face, and how technology aids in their protection.
+
+
+## Contact
+
+For more information, collaboration, or support, please contact Bryan Tineo at LinkedIn https://www.linkedin.com/in/bryan-tineo/.
+
 
 # ⚒️🤖 - Train a Jupyter Model in AWS and Deploy AI Machine Learning Model as an API to use in an App or Website
 
