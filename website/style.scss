@@ -424,6 +424,43 @@ html {
   }
 }
 
+// Footer section
+.site-footer {
+  background-color: #f9d77e;
+
+  color: #264653;
+  padding: 2em;
+  text-align: center;
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .footer-nav {
+      a {
+        color: #264653;
+        text-decoration: none;
+        margin: 0 1em;
+        &:hover {
+          color: #2a9d8f;
+        }
+      }
+    }
+
+    .footer-info {
+      margin: 1em 0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .site-footer .footer-content {
+    flex-direction: column;
+  }
+}
+
 @media (max-width: 950px) {
   .gallery {
     display: none;
