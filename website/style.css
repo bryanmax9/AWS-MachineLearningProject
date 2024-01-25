@@ -385,6 +385,65 @@ html {
   margin: 1em 0;
 }
 
+@media (max-width: 1020px) {
+  .hero-section .model-viewer {
+    left: auto;
+    width: 84%;
+  }
+  .hero-section .hero-text {
+    /* Updated positioning and animation styles */
+    top: 10%; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%; /* Adjust the width as needed */
+    text-align: center;
+    opacity: 0;
+    animation: fadeIn 1.5s ease forwards;
+    animation-delay: 0.5s; /* Delay before the text starts appearing */
+  }
+  .hero-section .hero-text h1 {
+    font-size: 3em; /* Adjust font size for smaller screens */
+  }
+  .hero-section .hero-text h2 {
+    font-size: 1.5em; /* Adjust font size for smaller screens */
+  }
+  .hero-section .hero-text p {
+    font-size: 1em; /* Adjust font size for smaller screens */
+  }
+  .info-section {
+    padding: 2em; /* Reduced padding for smaller screens */
+  }
+  .info-section .info-content {
+    padding: 1em; /* Reduced padding for smaller content area */
+    max-width: 95vw; /* Increase max-width for better use of space */
+  }
+  .info-section .info-content h2 {
+    font-size: 2em; /* Smaller font size for the heading */
+  }
+  .info-section .info-content .info-box {
+    padding: 0.8em; /* Reduced padding inside the info box */
+  }
+  .info-section .info-content .info-box p {
+    font-size: 1em; /* Smaller font size for the paragraph */
+    line-height: 1.6; /* Improved line spacing for readability */
+  }
+  .hatching-section .hatching-title {
+    font-size: 4em;
+  }
+  .project-section .project-body {
+    flex-direction: column;
+  }
+  .project-section .project-body .project-image,
+  .project-section .project-body .project-text {
+    flex-basis: 100%;
+  }
+}
+/* Keyframes for fadeIn animation */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
 @media (max-width: 768px) {
   .site-footer .footer-content {
     flex-direction: column;
