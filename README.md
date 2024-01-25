@@ -1,4 +1,6 @@
-<img src="https://i.imgur.com/OxnmuE8.png" alt="MLH-banner" width="100%" height="750px">
+[![Video Thumbnail](https://i.imgur.com/OxnmuE8.png)](https://i.imgur.com/D3f83sq.mp4)
+
+
 
 Deployed Website: https://sea-turtle-savenest.netlify.app/
 
