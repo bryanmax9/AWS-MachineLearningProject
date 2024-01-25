@@ -183,7 +183,7 @@ html {
     }
 
     button {
-      background-color: #264653;
+      background-color: #1e3640;
       color: white;
       border: none;
       padding: 0.5em 1em;
@@ -193,6 +193,12 @@ html {
         background-color: darken(#264653, 10%);
       }
     }
+  }
+
+  .upload-container,
+  .result-container {
+    position: relative; /* Add position relative */
+    z-index: 2; /* Higher z-index to be on top of the .bottom-svg */
   }
 
   .result-container {
@@ -556,7 +562,28 @@ html {
 
 @media (max-width: 950px) {
   .gallery {
-    display: none;
+    grid-template-columns: repeat(4, 1fr); // Reduce the number of columns
+    grid-template-rows: auto; // Let the rows size according to content
+    grid-gap: 0.5rem; // Adjust the gap for a tighter grid
+    padding: 1rem; // Reduce padding for smaller screens
+
+    &__item {
+      // Adjust each item to span fewer columns and/or rows
+      &--1,
+      &--2,
+      &--3,
+      &--4 {
+        grid-column: span 2; // Span 2 columns
+        grid-row: span 2; // Span 2 rows
+      }
+      &--5,
+      &--6,
+      &--7,
+      &--8 {
+        grid-column: span 2; // Span 2 columns
+        grid-row: span 2; // Span 2 rows
+      }
+    }
   }
 }
 
@@ -591,10 +618,12 @@ html {
 }
 
 @media only screen and (max-width: 400px) {
+  /* Adjust hero section as needed */
   .hero-section {
     position: relative;
     min-height: 65vh; /* Adjust the hero section's minimum height as needed */
   }
+
   .hero-text {
     h1 {
       position: absolute;
@@ -606,5 +635,38 @@ html {
     p {
       display: none;
     }
+  }
+
+  /* Modern look for the info section */
+  .info-section {
+    font-size: 0.8em;
+    padding: 0.5em;
+  }
+  // predator section
+  .predators-section {
+    flex-direction: column;
+    align-items: stretch; /* Stretch items to fill the container width */
+
+    .predator-text-container,
+    .predator-image-container {
+      width: 100%; /* Full width for small screens */
+      margin-bottom: 1em; /* Add space between the image and text containers */
+      box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    }
+
+    .predator-text-container {
+      order: 2; /* Ensure text appears below the image */
+      max-height: none; /* Remove max-height restriction for small screens */
+      overflow-y: visible; /* Since we're no longer restricting height, we don't need to scroll */
+    }
+
+    .predator-image-container {
+      order: 1; /* Ensure image appears above the text */
+    }
+  }
+
+  // Project section
+  .project-section .project-header .section-title {
+    font-size: 2em;
   }
 }

@@ -165,7 +165,7 @@ html {
   font-size: 1em; /* Adjusted for smaller screens */
 }
 .image-upload-section .upload-container button {
-  background-color: #264653;
+  background-color: #1e3640;
   color: white;
   border: none;
   padding: 0.5em 1em;
@@ -173,6 +173,11 @@ html {
 }
 .image-upload-section .upload-container button:hover {
   background-color: #162830;
+}
+.image-upload-section .upload-container,
+.image-upload-section .result-container {
+  position: relative; /* Add position relative */
+  z-index: 2; /* Higher z-index to be on top of the .bottom-svg */
 }
 .image-upload-section .result-container img {
   max-width: 100%; /* Ensures image is responsive */
@@ -465,7 +470,18 @@ html {
 }
 @media (max-width: 950px) {
   .gallery {
-    display: none;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    grid-gap: 0.5rem;
+    padding: 1rem;
+  }
+  .gallery__item--1, .gallery__item--2, .gallery__item--3, .gallery__item--4 {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .gallery__item--5, .gallery__item--6, .gallery__item--7, .gallery__item--8 {
+    grid-column: span 2;
+    grid-row: span 2;
   }
 }
 /* Responsive Design for Hatching Section */
@@ -499,6 +515,7 @@ html {
   }
 }
 @media only screen and (max-width: 400px) {
+  /* Adjust hero section as needed */
   .hero-section {
     position: relative;
     min-height: 65vh; /* Adjust the hero section's minimum height as needed */
@@ -512,5 +529,31 @@ html {
   .hero-text h2,
   .hero-text p {
     display: none;
+  }
+  /* Modern look for the info section */
+  .info-section {
+    font-size: 0.8em;
+    padding: 0.5em;
+  }
+  .predators-section {
+    flex-direction: column;
+    align-items: stretch; /* Stretch items to fill the container width */
+  }
+  .predators-section .predator-text-container,
+  .predators-section .predator-image-container {
+    width: 100%; /* Full width for small screens */
+    margin-bottom: 1em; /* Add space between the image and text containers */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  }
+  .predators-section .predator-text-container {
+    order: 2; /* Ensure text appears below the image */
+    max-height: none; /* Remove max-height restriction for small screens */
+    overflow-y: visible; /* Since we're no longer restricting height, we don't need to scroll */
+  }
+  .predators-section .predator-image-container {
+    order: 1; /* Ensure image appears above the text */
+  }
+  .project-section .project-header .section-title {
+    font-size: 2em;
   }
 }/*# sourceMappingURL=style.css.map */
