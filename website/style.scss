@@ -156,7 +156,7 @@ html {
 .image-upload-section {
   position: relative;
   text-align: center;
-  padding: 2em 2em 15em 2em;
+  padding: 2em 1em; /* Adjusted padding for smaller screens */
   background-color: #264653;
 
   .bottom-svg {
@@ -164,19 +164,22 @@ html {
     bottom: 0;
     left: 0;
     z-index: 1;
+    width: 100%; /* Full width */
   }
 
   .upload-container {
     margin-bottom: 1em;
 
     h2 {
-      font-size: 3em;
+      font-size: 2em; /* Adjusted for smaller screens */
       color: #fffdd0;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
-    input[type="file"] {
-      margin: 1em;
+    input[type="file"],
+    button {
+      margin: 0.5em;
+      font-size: 1em; /* Adjusted for smaller screens */
     }
 
     button {
@@ -194,13 +197,32 @@ html {
 
   .result-container {
     img {
-      display: block; /* Changed from 'none' to 'block' */
-      margin: 0 auto; /* Centers the image */
+      max-width: 100%; /* Ensures image is responsive */
+      height: auto; /* Maintain aspect ratio */
+      display: block;
+      margin: 0 auto;
     }
 
     p {
       color: #fffdd0;
-      font-size: 2em;
+      font-size: 1.5em; /* Adjusted for smaller screens */
+    }
+  }
+}
+
+/* Media Query for smaller screens */
+@media only screen and (max-width: 600px) {
+  .image-upload-section {
+    .upload-container {
+      h2 {
+        font-size: 1.5em; /* Smaller font size for very small screens */
+      }
+    }
+
+    .result-container {
+      p {
+        font-size: 1.2em; /* Smaller font size for very small screens */
+      }
     }
   }
 }
@@ -565,5 +587,11 @@ html {
     p {
       font-size: 1em;
     }
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .hero-section {
+    min-height: 100vh; /* Replace with your desired maximum height */
   }
 }
