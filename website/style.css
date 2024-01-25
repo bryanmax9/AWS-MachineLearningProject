@@ -500,6 +500,17 @@ html {
 }
 @media only screen and (max-width: 400px) {
   .hero-section {
-    min-height: 100vh; /* Replace with your desired maximum height */
+    position: relative;
+    min-height: 60vh; /* Adjust the hero section's minimum height as needed */
+  }
+  .hero-text h1 {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -80%); /* Adjust position to be centered */
+  }
+  .hero-text h2,
+  .hero-text p {
+    display: none;
   }
 }/*# sourceMappingURL=style.css.map */
