@@ -31,6 +31,8 @@ The project includes a dedicated website showcasing the cloud-based AI model. Th
 - Providing information on the importance of sea turtle conservation.
 - Offering insights into how the AI model assists in real-time nest monitoring.
 
+<img src="https://i.imgur.com/Kqs9hok.png" ></img>
+
 ### Features
 
 - **Live Demo**: Users can upload images of baby sea turtles to see the model in action.
