@@ -33,7 +33,14 @@ The project includes a dedicated website showcasing the cloud-based AI model. Th
 
 ## (This functionality will be disabled in order to cut cost and improve the model in order to identify sea turtles in video file format)
 
+Example 1 - Given Baby sea turtle image: 
+
 <img src="https://i.imgur.com/Kqs9hok.png" ></img>
+
+Example 2 - Given a PEnguin image:
+
+<img src="https://i.imgur.com/UP32KCm.png" ></img>
+
 
 ### Features
 
